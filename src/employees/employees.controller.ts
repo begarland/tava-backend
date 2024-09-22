@@ -18,7 +18,6 @@ export class EmployeesController {
   @Post()
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     console.log(`POST - /employees -`, new Date());
-
     return this.employeesService.create(createEmployeeDto);
   }
 
@@ -40,7 +39,6 @@ export class EmployeesController {
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
     console.log(`PATCH - /employees/${id} -`, new Date());
-    // console.log(updateEmployeeDto); PII Filter?
     return this.employeesService.update(+id, updateEmployeeDto);
   }
 
