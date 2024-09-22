@@ -15,14 +15,22 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
+  currentCount = 14;
+
   @Post()
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     console.log(`POST - /employees -`, new Date());
-    return this.employeesService.create(
+
+    this.currentCount++;
+
+    const employee =
       typeof createEmployeeDto === 'string'
-        ? JSON.parse(createEmployeeDto)
-        : createEmployeeDto,
-    );
+        ? { ...JSON.parse(createEmployeeDto) }
+        : { ...createEmployeeDto };
+
+    employee.id = this.currentCount;
+
+    return this.employeesService.create(employee);
   }
 
   @Get()
