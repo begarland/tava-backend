@@ -18,7 +18,11 @@ export class EmployeesController {
   @Post()
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     console.log(`POST - /employees -`, new Date());
-    return this.employeesService.create(createEmployeeDto);
+    return this.employeesService.create(
+      typeof createEmployeeDto === 'string'
+        ? JSON.parse(createEmployeeDto)
+        : createEmployeeDto,
+    );
   }
 
   @Get()
@@ -39,7 +43,12 @@ export class EmployeesController {
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
     console.log(`PATCH - /employees/${id} -`, new Date());
-    return this.employeesService.update(+id, updateEmployeeDto);
+    return this.employeesService.update(
+      +id,
+      typeof updateEmployeeDto === 'string'
+        ? JSON.parse(updateEmployeeDto)
+        : updateEmployeeDto,
+    );
   }
 
   @Delete(':id')
