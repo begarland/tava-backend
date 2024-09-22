@@ -17,16 +17,20 @@ export class EmployeesController {
 
   @Post()
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
+    console.log(`POST - /employees -`, new Date());
+
     return this.employeesService.create(createEmployeeDto);
   }
 
   @Get()
   findAll() {
+    console.log('GET - /employees -', new Date());
     return this.employeesService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log(`GET - /employees/${id} -`, new Date());
     return this.employeesService.findOne(+id);
   }
 
@@ -35,6 +39,8 @@ export class EmployeesController {
     @Param('id') id: string,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
+    console.log(`PATCH - /employees/${id} -`, new Date());
+    // console.log(updateEmployeeDto); PII Filter?
     return this.employeesService.update(+id, updateEmployeeDto);
   }
 
